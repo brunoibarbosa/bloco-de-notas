@@ -1,0 +1,646 @@
+@import '_variaveis';
+@import '_mixins';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    min-height: 100vh;
+    color: $preto;
+}
+
+a {
+    text-decoration: none;
+}
+
+input, button, select, textarea {
+    color: $preto;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    outline: none;
+}
+
+button {
+    background: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin: 8px 0;
+    padding-right: 10px;
+}
+
+img {
+    pointer-events: none;
+}
+
+header {
+    @include flex();
+
+    button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .logo {
+        margin: 70px auto;
+        fill: $cor-principal;
+    }
+}
+
+header section, main {
+    button:active {
+        transform: translateY(2px) translateZ(2px);
+
+        &::after {
+            bottom: -2px !important;
+        }
+    }
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+        padding: 0 24px;
+    }
+}
+
+body > footer {
+    background: $cor-principal;
+    color: $branco;
+    height: 50px;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: .8rem;
+    font-weight: 700;
+
+    img {
+        width: 18px;
+        margin-top: -3px;
+        margin-left: 5px;
+        transform: translateY(20%);
+    }
+}
+
+.overlay {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    background-color: $preto;
+    opacity: .4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    transition: min-height .2s ease-in-out;
+
+    &.aberto {
+        min-height: 100vh;
+    }
+}
+
+.editaNota {
+    background-color: $branco;
+    position: fixed;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    width: calc(100vw - 48px);
+    max-width: 600px;
+    padding: 30px 25px;
+    border-radius: 15px;
+    transition: top .4s ease-in-out;
+
+    &.aberto {
+        top: 50%;
+    }
+
+    input {
+        width: 100%;
+        font-weight: 700;
+    }
+
+    textarea {
+        outline: none;
+        border: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 200px;
+        height: 20px;
+        width: 100%;
+        resize: none;
+        font-size: 1rem;
+        appearance: none;
+    }
+
+    span {
+        display: block;
+        background-color: lighten($cinza, 15%);
+        height: 1px;
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    section {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    button {
+        width: auto;
+        height: auto;
+        background-color: $cor-principal;
+        color: $branco;
+        padding: 10px 20px;
+        @include el3d();
+
+        &::after {
+            @include pseudo(100%, darken($cor-principal, 15%), 5px);
+        }
+    }
+
+    .btnCancelar {
+        color: $cinza;
+        background-color: transparent;
+
+        &:active {
+            transform: none;
+        }
+
+        &::after {
+            background-color: transparent;
+        }
+    }
+}
+
+.espiral {
+    position: relative;
+    top: -11px;
+    height: 25px;
+    width: 100%;
+    background-image: url('../assets/spiral.svg');
+}
+
+.entradaDados {
+    background-color: $cor-principal;
+    color: $branco;
+    font-weight: 600;
+    padding-bottom: 16px;
+    border-radius: 0 0 15px 15px;
+
+    input, textarea {
+        height: 45px;
+        padding: 0 1rem;
+    }
+
+    button {
+        background-color: $preto;
+        width: 45px;
+        @include el3d();
+
+            &::after {
+                @include pseudo(100%, $preto, 0 0 5px 0);
+            }
+
+            img {
+                vertical-align: middle;
+            }
+    }
+
+    .campoAddNota {
+        margin: .5rem 0;
+
+        & > section {
+            display: flex;
+            position: relative;
+            @include el3d();
+
+            &::after {
+                @include pseudo(calc(100% - 45px), $branco, 0 0 0 5px);
+                height: 30px;
+            }
+
+            &.ativo::after {
+                border-radius: 0 0 5px 5px;
+            }
+
+            section {
+                display: flex;
+                flex-direction: column;
+                border-radius: 5px 0 0 5px;
+                width: calc(100% - 45px);
+            }
+
+            input {
+                flex-grow: 1;
+                font-weight: bold;
+                border-radius: 5px 0 0 0;
+                max-height: 0;
+            }
+
+            &.ativo input {
+                max-height: unset;
+            }
+
+            &.ativo textarea {
+                border-radius: 0 0 5px 5px;
+                padding: 12px 1rem;
+                line-height: 20px;
+            }
+
+            textarea {
+                border-radius: 5px 0 0 5px;
+                line-height: 45px;
+                flex-grow: 1;
+                resize: none;
+                font-weight: 600;
+            }
+
+            span {
+                display: block;
+                background-color: lighten($cinza, 15%);
+                height: 1px;
+                position: absolute;
+                top: 45px;
+                width: calc(100% - 2rem - 45px);
+                margin-left: 1rem;
+            }
+        }
+
+        button {
+            max-height: 45px;
+            border-radius: 0 5px 5px 0;
+        }
+    }
+
+    .mostrarCampoOpc {
+        @include flex();
+        position: relative;
+        padding-top: 15px;
+        
+        * {cursor: pointer;}
+
+        label {
+            @include flex();
+            margin-bottom: 10px;
+            padding-right: 0;
+            flex-grow: 1;
+        }
+
+        .linha {
+            margin-top: 2px;
+            margin-left: 10px;
+            display: block;
+            height: 1px;
+            width: 10px;
+            background-color: $branco;
+            opacity: .5;
+            flex-grow: 1;
+        }
+
+        input {
+            opacity: 0;
+
+            &:checked + span {
+                &::after { 
+                    background-image: url(../assets/less.svg);
+                }
+            }
+        }
+
+        & > span {
+            @include flex();
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            right: 0;
+            cursor: pointer;
+            pointer-events: none;
+            background: $branco;
+
+            &::after {
+                position: relative;
+                display: block;
+                content: '';
+                background-image: url(../assets/plus.svg);
+                background-size: 9px 9px;
+                background-position: center;
+                filter: invert(1);
+                width: 9px;
+                height: 9px;
+            }
+        }
+    }
+
+    .campoOpc {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 10px;
+        overflow: hidden;
+        max-height: 1000px;
+        transition: ease-in-out .4s;
+
+        &.oculto {
+            max-height: 0;
+        }
+
+        & > section {
+            margin: 0 5px 10px 5px;
+
+            &:nth-child(n+2) {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .campoFiltrar {
+        flex-grow: 1;
+
+        input {
+            width: calc(100% - 45px);
+            border-radius: 5px 0 0 5px;
+        }
+
+        button {
+            border-radius: 0 5px 5px 0;
+            background-color: darken($branco, 10%);
+
+            &::after {
+                background-color: darken($branco, 20%);
+            }
+        }
+
+        & > section {
+            display: flex;
+            
+            @include el3d();
+
+            &::after {
+                @include pseudo(calc(100% - 45px), $branco, 0 0 0 5px);
+                height: 30px;
+            }
+        }
+    }
+
+    .campoOrdenar {
+        & > section {
+            position: relative;
+            @include el3d();
+            
+            &::after {
+                @include pseudo(100%, $branco, 5px);
+                height: 30px;
+            }
+        }
+
+        span {
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            right: 0;
+            top: 0;
+            background: darken($branco, 10%);
+            display: block;
+            border-radius: 0 5px 5px 0;
+            pointer-events: none;
+            background-image: url(../assets/arrow-down.svg);
+            background-position: center;
+            background-size: 11px;
+            background-repeat: no-repeat;
+        }
+
+        select {
+            appearance: none;
+            background-color: $branco;
+            cursor: pointer;
+            height: 45px;
+            padding: 0 25px 0 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: $preto;
+            border: none;
+            border-radius: 5px;
+        }
+    }
+
+    .campoFiltroData section {
+        @include el3d();
+        
+        input { 
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: $branco;
+        }
+
+        &::after {
+            @include pseudo(100%, $branco, 5px);
+            height: 30px;
+        }
+    }
+
+    .btnLimpar {
+        margin-top: 15px;
+        color: $branco;
+        font-size: .9rem;
+        text-transform: uppercase;
+        padding: 0 25px;
+        width: auto;
+        height: 45px;
+        border-radius: 5px;
+
+        &::after { border-radius: 5px;}
+    }
+
+    @include media-desktop {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: center;
+
+        .mostrarCampoOpc {
+            display: none;
+        }
+
+        .campoOpc.oculto {
+            max-height: 100%;
+        }
+
+        .campoAddNota {
+            margin-right: 5px;
+            flex-grow: 1;
+            max-width: 350px;
+        }
+
+        .campoFiltrar {
+            width: 200px;
+        }
+    } 
+}
+
+.saidaDados {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex-grow: 1;
+    min-height: 150px;
+    padding: 15px 24px;
+
+    &.semNota::after {
+        content: 'Nada por aqui...\A Anote alguma coisa!';
+        white-space: pre-wrap;
+        text-align: center;
+        left: 50%;
+        top: 100px;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        font-weight: 700;
+        font-size: 1rem;
+        color: $cinza;
+    }
+
+    &.antigos {
+        flex-direction: column-reverse;
+    }
+
+    .nota {
+        position: relative;
+        border: 1px solid lighten($cinza, 15%);
+        border-radius: 5px;
+        width: calc(100% - 16px);
+        margin: 15px 0;
+
+        & > * {
+            padding: 9px 15px;
+        }
+        
+        .titulo_nota {
+            font-weight: 700;
+            font-size: .93rem;
+        }
+
+        span {
+            padding: 0;
+            height: 1px;
+            width: calc(100% - 45px);
+            margin-left: 15px;
+            display: block;
+            background-color: lighten($cinza, 15%);
+        }
+
+        .txt_nota {
+            padding: 20px 15px;
+            padding-right: 20px;
+            font-weight: 600;
+            font-size: .87rem;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            white-space:nowrap;
+        }
+
+        .data_nota {
+            font-weight: 500;
+            font-size: .7rem;
+            background-color: lighten($cinza, 15%);
+            color: darken($cinza, 15%);
+        } 
+
+        .cta_nota {
+            position: absolute;
+            right: -17px;
+            top: -2px;
+            padding: 0;
+            z-index: 5;
+
+            button {
+                width: 33px;
+                height: 33px;
+                margin: 7px 0;
+                @include flex();
+                @include el3d();
+                
+                &::after { @include pseudo(100%, black, 5px, -4px);}
+            }
+
+            .btnCopia {
+                background-color: #2D9CDB;
+                &::after { background-color: darken(#2D9CDB, 15%);}
+            }
+
+            .btnEdita {
+                background-color: #27AE60;
+                &::after { background-color: darken(#27AE60, 15%);}
+            }
+
+            .btnRemove {
+                background-color: $cor-principal;
+                &::after { background-color: darken($cor-principal, 15%);}
+            }
+        }
+
+        &.copiado::after {
+            @include flex();
+            content: 'Copiado! \2714';
+            font-size: 1rem;
+            font-weight: 700;
+            color: $preto;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: $branco;
+            border-radius: 5px;
+            z-index: 2;
+        }
+    }
+
+    @include media-desktop {
+        display: -webkit-box;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 24px 0 8px;
+        margin: 15px 0;
+
+        &.antigos {
+            flex-wrap: wrap-reverse;
+            flex-direction: row-reverse;
+        }
+
+        .nota {
+            width: auto;
+            margin-left: 16px;
+            margin-right: 16px;
+            flex-grow: 1;
+            flex-basis: 20%;
+
+            &:first-of-type, &:last-of-type {
+                margin-left: 16px;
+                margin-right: 16px;
+            }
+        }
+    }
+}
+
+main > .nota {
+    display: none;
+}

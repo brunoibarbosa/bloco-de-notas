@@ -1,0 +1,28 @@
+@mixin pseudo($largura, $cor, $borda, $bottom: -4px) {
+    position: absolute;
+    content: '';
+    display: block;
+    width: $largura;
+    height: 20px;
+    left: 0;
+    bottom: $bottom;
+    background-color: darken($cor, 10%);
+    border-radius: $borda;
+    transform: translateZ(-1px);
+    pointer-events: none;
+}
+
+@mixin el3d() {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+@mixin flex() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin media-desktop () {
+    @media (min-width: 900px) { @content }
+}

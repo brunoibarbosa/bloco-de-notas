@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+		<title>LightNote</title>
+		<link rel="stylesheet" href="./css/style.css">
+		<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+	</head>
+
+	<body>
+		<header>
+			<img class="logo" src="./assets/logo.svg" alt="LightNote, anote sem notar.">
+			<section class="editaNota" id="editaNota">
+				<input type="text" id="tituloEdita">
+				<span></span>
+				<textarea id="conteudoEdita" rows="auto"></textarea>
+				<span></span>
+				<section>
+					<button id="btnCancelar" class="btnCancelar fecharBalao">Cancelar</button>
+					<button id="btnSalvar" class="btnSalvar">Salvar</button>
+				</section>
+			</section>
+			<section class="overlay"></section>
+		</header>
+		<main>
+			<section class="entradaDados">
+				<div class="espiral">
+				</div>
+				<section class="campoAddNota" id="campoAddNota">
+					<label for="textoNovaNota">Adicione uma nota:</label>
+					<section>
+						<section>
+							<input type="text" id="tituloNovaNota" placeholder="Título">
+							<span></span>
+							<textarea name="" id="textoNovaNota"></textarea>
+						</section>
+						<button id="btnAddNota">
+							<img src="./assets/plus.svg" alt="Adicionar">
+						</button>
+					</section>
+				</section>
+				<section class="mostrarCampoOpc">
+					<label for="mostrarOpc">Opções<span class="linha"></span></label>
+					<input type="checkbox" id="mostrarOpc">
+					<span></span>
+				</section>
+				<section class="campoOpc oculto">
+					<section class="campoFiltrar" id="campoFiltrar">
+						<label for="inputFiltrar">Filtrar:</label>
+						<section>
+							<input type="text" id="inputFiltrar">
+							<button id="btnFiltrar">
+								<img src="./assets/filter.svg" alt="Filtrar busca">
+							</button>
+						</section>
+					</section>
+					<section id="campoOrdenar" class="campoOrdenar">
+						<label for="selectOrdenar">Ordenar:</label>
+						<section>
+							<select name="selectOrdenar" id="selectOrdenar">
+								<option value="recentes" selected>Mais recentes</option>
+								<option value="antigos">Mais antigos</option>
+							</select>
+							<span></span>
+						</section>
+					</section>
+					<section id="campoFiltroData" class="campoFiltroData">
+						<label for="inputData">Data:</label>
+						<section>
+							<input type="date" id="inputData">
+						</section>
+					</section>
+					<section class="limpar">
+						<button class="btnLimpar" id="btnLimpar">Limpar</button>
+					</section>
+				</section>
+			</section>
+			<section class="saidaDados semNota" id="saidaDados">
+			</section>
+			<section class="nota">
+				<h3 class="titulo_nota">Sem título</h3>
+				<span></span>
+				<p class="txt_nota">Escreva algo...</p>
+				<footer class="data_nota"></footer>
+				<section class="cta_nota">
+					<button class="btnCopia" id="btnCopia">
+						<img src="./assets/copy.svg" alt="Copiar nota">
+					</button>
+					<button class="btnEdita" id="btnEdita">
+						<img src="./assets/pencil.svg" alt="Editar nota">
+					</button>
+					<button class="btnRemove" id="btnRemove">
+						<img src="./assets/remove.svg" alt="Excluir nota">
+					</button>
+				</section>
+			</section>
+		</main>
+		<footer>
+			<span>Feito por Bruno Inacio</span>
+			<a href="https://github.com/brunoibarbosa" target="_blank"><img src="./assets/github.svg"
+					alt="Perfil no GitHub"></a>
+			<a href="https://www.linkedin.com/in/brunoibarbosa/" target="_blank"><img src="./assets/linkedin.svg"
+					alt="Perfil no LinkedIn"></a>
+		</footer>
+		<script src="./js/app.js"></script>
+	</body>
+
+</html>
